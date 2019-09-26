@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="022b57c2-565d-4a3d-96f7-70e01a84425c" >
+		<http:listener-connection host="0.0.0.0" port="8083" />
+	</http:listener-config>
+	<flow name="sampleFlow" doc:id="4b24d28b-157c-4f0d-9b4a-450b7ae7c61d" >
+		<http:listener doc:name="Listener" doc:id="5cac2458-b1ca-4edb-910d-f8cd32f2ddc4" config-ref="HTTP_Listener_config" path="/sample" allowedMethods="GET"/>
+		<set-variable value='"whats up"' doc:name="Set Variable" doc:id="d5e1eb1a-f28b-4ddc-9fb7-f6003106c8d0" variableName="a" mimeType="application/json" />
+		<set-payload value='#[vars.a]' doc:name="Set Payload" doc:id="ab3ac3f4-813a-436f-8674-71cabb32eca5" mimeType="application/json" />
+		<logger level="INFO" doc:name="Logger" doc:id="bbb07afc-c196-4c76-bbf6-6efc9b2cccad" message="#[payload]"/>
+	</flow>
+</mule>
